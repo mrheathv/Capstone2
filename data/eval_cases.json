@@ -1,0 +1,139 @@
+[
+  {
+    "id": "seed-001",
+    "name": "Count accounts by sector",
+    "test_type": "golden_sql",
+    "question": "How many accounts are in each sector?",
+    "enabled": true,
+    "tags": [
+      "accounts",
+      "aggregation"
+    ],
+    "created_at": "2026-03-17T00:00:00",
+    "expected_sql": "SELECT sector, COUNT(*) as count FROM accounts GROUP BY sector ORDER BY count DESC"
+  },
+  {
+    "id": "seed-002",
+    "name": "Technology sector accounts",
+    "test_type": "golden_sql",
+    "question": "Show me all accounts in the technology sector",
+    "enabled": true,
+    "tags": [
+      "accounts",
+      "filter"
+    ],
+    "created_at": "2026-03-17T00:00:00",
+    "expected_sql": "SELECT account_id, account, revenue FROM accounts WHERE sector = 'technolgy'"
+  },
+  {
+    "id": "seed-003",
+    "name": "Open engaging deals",
+    "test_type": "golden_sql",
+    "question": "Show me all deals currently in the Engaging stage",
+    "enabled": true,
+    "tags": [
+      "pipeline",
+      "filter"
+    ],
+    "created_at": "2026-03-17T00:00:00",
+    "expected_sql": "SELECT * FROM v_pipeline_snapshot WHERE deal_stage = 'Engaging'"
+  },
+  {
+    "id": "seed-004",
+    "name": "GTX Basic price",
+    "test_type": "golden_sql",
+    "question": "What is the price of GTX Basic?",
+    "enabled": true,
+    "tags": [
+      "products"
+    ],
+    "created_at": "2026-03-17T00:00:00",
+    "expected_sql": "SELECT product, sales_price FROM products WHERE product = 'GTX Basic'"
+  },
+  {
+    "id": "seed-005",
+    "name": "Pipeline snapshot performance",
+    "test_type": "golden_sql_perf",
+    "question": "Show me the full pipeline snapshot",
+    "enabled": true,
+    "tags": [
+      "pipeline",
+      "performance"
+    ],
+    "created_at": "2026-03-17T00:00:00",
+    "expected_sql": "SELECT * FROM v_pipeline_snapshot",
+    "max_exec_ms": 2000,
+    "expected_row_count": null
+  },
+  {
+    "id": "seed-006",
+    "name": "Accounts summary performance",
+    "test_type": "golden_sql_perf",
+    "question": "Show me the accounts summary",
+    "enabled": true,
+    "tags": [
+      "accounts",
+      "performance"
+    ],
+    "created_at": "2026-03-17T00:00:00",
+    "expected_sql": "SELECT * FROM v_accounts_summary",
+    "max_exec_ms": 3000,
+    "expected_row_count": null
+  },
+  {
+    "id": "seed-007",
+    "name": "Agent redirects off-topic",
+    "test_type": "conversational",
+    "question": "What is the weather like today?",
+    "enabled": true,
+    "tags": [
+      "safety",
+      "off-topic"
+    ],
+    "created_at": "2026-03-17T00:00:00",
+    "expected_answer_contains": [
+      "sales",
+      "data"
+    ],
+    "expected_answer_excludes": [
+      "sunny",
+      "temperature",
+      "forecast"
+    ]
+  },
+  {
+    "id": "seed-008",
+    "name": "Open work today",
+    "test_type": "conversational",
+    "question": "What should I work on today?",
+    "enabled": true,
+    "tags": [
+      "open-work"
+    ],
+    "created_at": "2026-03-17T00:00:00",
+    "expected_answer_contains": [
+      "Engaging",
+      "account"
+    ],
+    "expected_answer_excludes": []
+  },
+  {
+    "id": "seed-009",
+    "name": "Deal stage explanation",
+    "test_type": "conversational",
+    "question": "What do the deal stages mean?",
+    "enabled": true,
+    "tags": [
+      "pipeline",
+      "explanation"
+    ],
+    "created_at": "2026-03-17T00:00:00",
+    "expected_answer_contains": [
+      "Prospecting",
+      "Engaging",
+      "Won",
+      "Lost"
+    ],
+    "expected_answer_excludes": []
+  }
+]
